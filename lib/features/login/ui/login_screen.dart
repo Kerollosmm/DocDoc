@@ -1,3 +1,4 @@
+import 'package:doc_app/core/theming/styles.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -5,6 +6,15 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Center(
+            child: Text("Login Screen", style: TextStyles.font13DarkBlueMedium),
+          ),
+        ],
+      ),
+    );
   }
 }

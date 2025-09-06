@@ -1,5 +1,3 @@
-import 'package:doc_app/core/helpers/extensions.dart';
-import 'package:doc_app/core/routing/routes.dart';
 import 'package:doc_app/core/theming/styles.dart';
 import 'package:doc_app/features/onboarding/widgets/doc_logo_and_name.dart';
 import 'package:doc_app/features/onboarding/widgets/doctor_image_and_text.dart';
