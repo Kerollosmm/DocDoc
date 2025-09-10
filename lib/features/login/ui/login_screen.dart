@@ -1,14 +1,12 @@
 import 'package:doc_app/core/helpers/spacing.dart';
-import 'package:doc_app/core/theming/colors.dart';
 import 'package:doc_app/core/theming/styles.dart';
 import 'package:doc_app/core/widgets/app_text_button.dart';
-import 'package:doc_app/core/widgets/app_text_form_field.dart';
 import 'package:doc_app/features/login/data/models/login_request_body.dart';
 import 'package:doc_app/features/login/logic/cubit/login_cubit.dart';
+import 'package:doc_app/features/login/ui/widgets/dont_have_account_text.dart';
 import 'package:doc_app/features/login/ui/widgets/email_and_password.dart';
 import 'package:doc_app/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:doc_app/features/login/ui/widgets/terms_and_conditions_text.dart';
-import 'package:doc_app/features/sign_up/ui/widgets/already_have_account_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                     verticalSpace(16),
                     const TermsAndConditionsText(),
                     verticalSpace(60),
-                    const AlreadyHaveAccountText(),
+                    const DontHaveAccount(),
                     const LoginBlocListener()
                   ],
                 ),
