@@ -13,7 +13,7 @@ SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : UserData.fromJson(json['data'] as Map<String, dynamic>),
       status: json['status'] as bool?,
-      code: (json['code'] as num?)?.toInt(),
+      code: json['code'] as int?,
     );
 
 Map<String, dynamic> _$SignupResponseToJson(SignupResponse instance) =>
@@ -25,11 +25,11 @@ Map<String, dynamic> _$SignupResponseToJson(SignupResponse instance) =>
     };
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
-  token: json['token'] as String?,
-  userName: json['username'] as String?,
-);
+      token: json['token'] as String?,
+      userName: json['username'] as String?,
+    );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
-  'token': instance.token,
-  'username': instance.userName,
-};
+      'token': instance.token,
+      'username': instance.userName,
+    };

@@ -1,3 +1,4 @@
+
 import 'package:doc_app/core/networking/api_error_handler.dart';
 import 'package:doc_app/core/networking/api_result.dart';
 import 'package:doc_app/core/networking/api_service.dart';
@@ -10,13 +11,12 @@ class LoginRepo {
   LoginRepo(this._apiService);
 
   Future<ApiResult<LoginResponse>> login(
-    LoginRequestBody loginRequestBody,
-  ) async {
+      LoginRequestBody loginRequestBody) async {
     try {
       final response = await _apiService.login(loginRequestBody);
       return ApiResult.success(response);
-    } catch (error) {
-      return ApiResult.failure(ErrorHandler.handle(error));
+    } catch (errro) {
+      return ApiResult.failure(ErrorHandler.handle(errro));
     }
   }
 }

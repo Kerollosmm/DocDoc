@@ -1,4 +1,3 @@
-import 'package:doc_app/core/networking/api_result.dart';
 import 'package:doc_app/features/sign_up/data/repos/sign_up_repo.dart';
 import 'package:doc_app/features/sign_up/logic/sign_up_state.dart';
 import 'package:flutter/material.dart';
