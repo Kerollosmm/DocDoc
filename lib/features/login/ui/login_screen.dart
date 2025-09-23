@@ -1,18 +1,19 @@
-import 'package:doc_app/core/helpers/spacing.dart';
-import 'package:doc_app/core/theming/styles.dart';
-import 'package:doc_app/core/widgets/app_text_button.dart';
-import 'package:doc_app/features/login/data/models/login_request_body.dart';
 import 'package:doc_app/features/login/logic/cubit/login_cubit.dart';
-import 'package:doc_app/features/login/ui/widgets/dont_have_account_text.dart';
-import 'package:doc_app/features/login/ui/widgets/email_and_password.dart';
-import 'package:doc_app/features/login/ui/widgets/login_bloc_listener.dart';
-import 'package:doc_app/features/login/ui/widgets/terms_and_conditions_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/helpers/spacing.dart';
+import '../../../core/theming/styles.dart';
+import '../../../core/widgets/app_text_button.dart';
+import 'widgets/dont_have_account_text.dart';
+import 'widgets/email_and_password.dart';
+import 'widgets/login_bloc_listener.dart';
+import 'widgets/terms_and_conditions_text.dart';
+
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +24,9 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50.h),
                 Text(
                   'Welcome Back',
-                  style: TextStyles.font24BlueBold.copyWith(fontSize: 34),
+                  style: TextStyles.font24BlueBold,
                 ),
                 verticalSpace(8),
                 Text(
@@ -34,10 +34,10 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyles.font14GrayRegular,
                 ),
                 verticalSpace(36),
-
                 Column(
                   children: [
-                    EmailAndPassword(),
+                    const EmailAndPassword(),
+                    verticalSpace(24),
                     Align(
                       alignment: AlignmentDirectional.centerEnd,
                       child: Text(
@@ -47,18 +47,17 @@ class LoginScreen extends StatelessWidget {
                     ),
                     verticalSpace(40),
                     AppTextButton(
-                      buttonText: 'Login',
-                      textStyle: TextStyles.font16WhiteMedium,
+                      buttonText: "Login",
+                      textStyle: TextStyles.font16WhiteSemiBold,
                       onPressed: () {
-                        validateThenLogin(context);
+                        validateThenDoLogin(context);
                       },
                     ),
-
                     verticalSpace(16),
                     const TermsAndConditionsText(),
                     verticalSpace(60),
-                    const DontHaveAccount(),
-                    const LoginBlocListener()
+                    const DontHaveAccountText(),
+                    const LoginBlocListener(),
                   ],
                 ),
               ],
@@ -69,14 +68,9 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void validateThenLogin(BuildContext context) {
+  void validateThenDoLogin(BuildContext context) {
     if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-      context.read<LoginCubit>().emitLoginStates(
-        LoginRequestBody(
-          email: context.read<LoginCubit>().emailController.text,
-          password: context.read<LoginCubit>().passwordController.text,
-        ),
-      );
+      context.read<LoginCubit>().emitLoginStates();
     }
   }
 }

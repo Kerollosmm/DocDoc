@@ -102,3 +102,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+# Flutter flavors configuration
+flavors:
+  development:
+    app:
+      name: "Doc App Dev"
+  production:
+    app:
+      name: "Doc App"
+
+# Set development as default flavor
+default-flavor: development

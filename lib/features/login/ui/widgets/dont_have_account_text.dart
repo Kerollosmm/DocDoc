@@ -1,12 +1,13 @@
 import 'package:doc_app/core/helpers/extensions.dart';
+import 'package:doc_app/core/routing/routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/routing/routes.dart';
+
 import '../../../../core/theming/styles.dart';
 
-class DontHaveAccount extends StatelessWidget {
-  const DontHaveAccount({super.key});
+class DontHaveAccountText extends StatelessWidget {
+  const DontHaveAccountText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +16,15 @@ class DontHaveAccount extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: 'dont have an account?',
+            text: 'Don\'t have an account?',
             style: TextStyles.font13DarkBlueRegular,
           ),
           TextSpan(
-            text: ' Login',
+            text: ' Sign Up',
             style: TextStyles.font13BlueSemiBold,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                context.pushReplacementNamed(Routes.signUp);
+                context.pushReplacementNamed(Routes.signUpScreen);
               },
           ),
         ],

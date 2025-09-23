@@ -1,6 +1,14 @@
+import '../config/app_config.dart';
+
 class ApiConstants {
-  static const String baseUrl = 'https://vcare.integration25.com/api/';
-  static const String login = 'auth/login';
+  // Use environment-based URL
+  static String get apiBaseUrl => AppConfig.baseUrl;
+
+  // Keep the original URL as fallback for development
+  static const String fallbackApiBaseUrl =
+      "https://vcare.integration25.com/api/";
+
+  static const String login = "auth/login";
   static const String signup = "auth/register";
 }
 
