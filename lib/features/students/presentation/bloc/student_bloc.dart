@@ -28,33 +28,34 @@ class StudentBloc extends Bloc<StudentEvent, StudentState> {
   StudentBloc(this._repository) : super(const StudentState.initial()) {
     on<_LoadStudents>((event, emit) async {
       emit(const StudentState.loading());
-      try {
-        final students = await _repository.getStudents(event.grade);
-        emit(StudentState.loaded(students));
-      } catch (e) {
-        emit(StudentState.error(e.toString()));
-      }
+      final result = await _repository.getStudents(event.grade);
+
+      result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (students) => emit(StudentState.loaded(students)),
+      );
     });
 
     on<_AddStudent>((event, emit) async {
-      try {
-        await _repository.addStudent(event.student);
-        // Reload students for the same grade
-        add(StudentEvent.loadStudents(event.student.grade));
-      } catch (e) {
-        emit(StudentState.error(e.toString()));
-      }
+      final result = await _repository.addStudent(event.student);
+
+      result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (success) => add(StudentEvent.loadStudents(event.student.grade)),
+      );
     });
 
     on<_DeleteStudent>((event, emit) async {
-      try {
-        await _repository.deleteStudent(event.id);
-        // Note: In a real app we might need to know the grade to reload.
-        // For now, we assume the UI handles reloading or optimistically updates.
-        // Or we could store the current grade in the state.
-      } catch (e) {
-        emit(StudentState.error(e.toString()));
-      }
+      final result = await _repository.deleteStudent(event.id);
+
+      result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (success) {
+          // Ideally, we reload or optimistically update.
+          // Since we don't know the grade here easily without extra state management,
+          // we'll leave it as is for this refactor.
+        },
+      );
     });
   }
 }

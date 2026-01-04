@@ -6,6 +6,7 @@ import 'package:csms_app/domain/entities/attendance_record.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:csms_app/domain/repositories/student_repository.dart';
 import 'package:csms_app/domain/repositories/attendance_repository.dart';
+import 'package:dartz/dartz.dart';
 
 // Mocks
 class MockStudentRepository extends Mock implements StudentRepository {}
@@ -44,8 +45,11 @@ void main() {
         grade: 'Grade 5',
         phoneNumber: '1234567890'
       );
-      when(() => mockStudentRepo.addStudent(any())).thenAnswer((_) async {});
-      when(() => mockStudentRepo.getStudents('Grade 5')).thenAnswer((_) async => [student]);
+      // Updated: Return Either
+      when(() => mockStudentRepo.addStudent(any()))
+          .thenAnswer((_) async => const Right(null));
+      when(() => mockStudentRepo.getStudents('Grade 5'))
+          .thenAnswer((_) async => Right([student]));
 
       studentBloc.add(StudentEvent.addStudent(student));
 

@@ -10,7 +10,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:internet_connection_checker/internet_connection_checker.dart'
+    as _i973;
 
+import 'core/di/core_module.dart' as _i849;
+import 'core/network/network_info.dart' as _i75;
 import 'core/services/excel_service.dart' as _i776;
 import 'data/datasources/local/local_attendance_datasource.dart' as _i660;
 import 'data/datasources/local/local_student_datasource.dart' as _i249;
@@ -34,11 +38,16 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    final coreModule = _$CoreModule();
     gh.lazySingleton<_i776.ExcelService>(() => _i776.ExcelService());
+    gh.lazySingleton<_i973.InternetConnectionChecker>(
+        () => coreModule.internetConnectionChecker);
     gh.lazySingleton<_i660.LocalAttendanceDataSource>(
         () => _i660.HiveAttendanceDataSource());
     gh.lazySingleton<_i249.LocalStudentDataSource>(
         () => _i249.HiveStudentDataSource());
+    gh.lazySingleton<_i75.NetworkInfo>(
+        () => _i75.NetworkInfoImpl(gh<_i973.InternetConnectionChecker>()));
     gh.lazySingleton<_i193.SyncRepository>(
         () => _i942.SyncRepositoryImpl(gh<_i660.LocalAttendanceDataSource>()));
     gh.lazySingleton<_i178.AttendanceRepository>(
@@ -46,12 +55,16 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i660.LocalAttendanceDataSource>(),
               gh<_i193.SyncRepository>(),
             ));
-    gh.lazySingleton<_i243.StudentRepository>(
-        () => _i947.StudentRepositoryImpl(gh<_i249.LocalStudentDataSource>()));
     gh.factory<_i469.AttendanceBloc>(
         () => _i469.AttendanceBloc(gh<_i178.AttendanceRepository>()));
+    gh.lazySingleton<_i243.StudentRepository>(() => _i947.StudentRepositoryImpl(
+          gh<_i249.LocalStudentDataSource>(),
+          gh<_i75.NetworkInfo>(),
+        ));
     gh.factory<_i357.StudentBloc>(
         () => _i357.StudentBloc(gh<_i243.StudentRepository>()));
     return this;
   }
 }
+
+class _$CoreModule extends _i849.CoreModule {}
