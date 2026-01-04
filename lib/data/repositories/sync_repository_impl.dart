@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/logic/conflict_resolver.dart';
-import '../../domain/repositories/attendance_repository.dart';
 import '../../domain/repositories/sync_repository.dart';
+import '../datasources/local/local_attendance_datasource.dart';
 import '../models/attendance_record_model.dart';
 import 'dart:developer' as developer;
 
 @LazySingleton(as: SyncRepository)
 class SyncRepositoryImpl implements SyncRepository {
-  final AttendanceRepository _localRepo;
+  final LocalAttendanceDataSource _localDataSource;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ConflictResolver _resolver = ConflictResolver();
 
-  SyncRepositoryImpl(this._localRepo);
+  SyncRepositoryImpl(this._localDataSource);
 
   @override
   Future<void> syncAttendance(String date, String grade) async {
@@ -21,7 +21,7 @@ class SyncRepositoryImpl implements SyncRepository {
     try {
       final docSnap = await docRef.get();
 
-      final localRecords = await _localRepo.getAttendance(date, grade);
+      final localRecords = await _localDataSource.getAttendance(date, grade);
       final localMap = {for (var r in localRecords) r.studentId: r};
 
       if (!docSnap.exists) {
@@ -40,19 +40,22 @@ class SyncRepositoryImpl implements SyncRepository {
           final localRecord = localMap[studentId]!;
 
           if (localRecord.status != remoteRecord.status) {
-            final resolved = _resolver.resolve(localRecord, remoteRecord);
-            localMap[studentId] = resolved;
+            // resolve returns AttendanceRecord (Entity)
+            final resolvedEntity = _resolver.resolve(localRecord, remoteRecord);
+            // Convert back to Model to store
+            final resolvedModel = AttendanceRecordModel.fromEntity(resolvedEntity);
+            localMap[studentId] = resolvedModel;
             hasChanges = true;
           }
         } else {
-          _localRepo.markAttendance(remoteRecord);
+          _localDataSource.saveAttendance(remoteRecord);
         }
       });
 
       if (hasChanges) {
         for (var record in localMap.values) {
           if (record.isConflict) {
-            await _localRepo.markAttendance(record);
+            await _localDataSource.saveAttendance(record);
           }
         }
       }
