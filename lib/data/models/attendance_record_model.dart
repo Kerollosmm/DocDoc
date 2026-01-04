@@ -25,6 +25,9 @@ class AttendanceRecordModel extends AttendanceRecord {
   @override
   @HiveField(5)
   final bool isConflict;
+  @override
+  @HiveField(6)
+  final bool isSynced;
 
   const AttendanceRecordModel({
     required this.studentId,
@@ -33,6 +36,7 @@ class AttendanceRecordModel extends AttendanceRecord {
     required this.updatedBy,
     required this.timestamp,
     this.isConflict = false,
+    this.isSynced = false,
   }) : super(
           studentId: studentId,
           status: status,
@@ -40,6 +44,7 @@ class AttendanceRecordModel extends AttendanceRecord {
           updatedBy: updatedBy,
           timestamp: timestamp,
           isConflict: isConflict,
+          isSynced: isSynced,
         );
 
   factory AttendanceRecordModel.fromJson(Map<String, dynamic> json) =>
@@ -55,6 +60,7 @@ class AttendanceRecordModel extends AttendanceRecord {
       updatedBy: record.updatedBy,
       timestamp: record.timestamp,
       isConflict: record.isConflict,
+      isSynced: record.isSynced,
     );
   }
 }

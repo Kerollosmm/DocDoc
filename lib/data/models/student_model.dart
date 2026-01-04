@@ -18,14 +18,27 @@ class StudentModel extends Student {
   final String grade;
   @override
   @HiveField(3)
-  final String? phoneNumber;
+  final String phoneNumber;
+  @override
+  @HiveField(4)
+  final String? address;
+  @HiveField(5)
+  final DateTime? lastFetchTime; // For cache expiry
 
   const StudentModel({
     required this.id,
     required this.name,
     required this.grade,
-    this.phoneNumber,
-  }) : super(id: id, name: name, grade: grade, phoneNumber: phoneNumber);
+    required this.phoneNumber,
+    this.address,
+    this.lastFetchTime,
+  }) : super(
+          id: id,
+          name: name,
+          grade: grade,
+          phoneNumber: phoneNumber,
+          address: address,
+        );
 
   factory StudentModel.fromJson(Map<String, dynamic> json) =>
       _$StudentModelFromJson(json);
@@ -38,6 +51,19 @@ class StudentModel extends Student {
       name: student.name,
       grade: student.grade,
       phoneNumber: student.phoneNumber,
+      address: student.address,
+      lastFetchTime: DateTime.now(),
+    );
+  }
+
+  StudentModel copyWith({DateTime? lastFetchTime}) {
+    return StudentModel(
+      id: id,
+      name: name,
+      grade: grade,
+      phoneNumber: phoneNumber,
+      address: address,
+      lastFetchTime: lastFetchTime ?? this.lastFetchTime,
     );
   }
 }

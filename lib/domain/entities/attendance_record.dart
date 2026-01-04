@@ -9,6 +9,7 @@ class AttendanceRecord extends Equatable {
   final String updatedBy;
   final int timestamp;
   final bool isConflict;
+  final bool isSynced;
 
   const AttendanceRecord({
     required this.studentId,
@@ -17,8 +18,9 @@ class AttendanceRecord extends Equatable {
     required this.updatedBy,
     required this.timestamp,
     this.isConflict = false,
+    this.isSynced = false,
   });
 
   @override
-  List<Object?> get props => [studentId, status, date, updatedBy, timestamp, isConflict];
+  List<Object?> get props => [studentId, status, date, updatedBy, timestamp, isConflict, isSynced];
 }

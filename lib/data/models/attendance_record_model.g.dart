@@ -23,13 +23,14 @@ class AttendanceRecordModelAdapter extends TypeAdapter<AttendanceRecordModel> {
       updatedBy: fields[3] as String,
       timestamp: fields[4] as int,
       isConflict: fields[5] as bool,
+      isSynced: fields[6] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, AttendanceRecordModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.studentId)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class AttendanceRecordModelAdapter extends TypeAdapter<AttendanceRecordModel> {
       ..writeByte(4)
       ..write(obj.timestamp)
       ..writeByte(5)
-      ..write(obj.isConflict);
+      ..write(obj.isConflict)
+      ..writeByte(6)
+      ..write(obj.isSynced);
   }
 
   @override
@@ -108,6 +111,7 @@ AttendanceRecordModel _$AttendanceRecordModelFromJson(
       updatedBy: json['updatedBy'] as String,
       timestamp: (json['timestamp'] as num).toInt(),
       isConflict: json['isConflict'] as bool? ?? false,
+      isSynced: json['isSynced'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$AttendanceRecordModelToJson(
@@ -119,6 +123,7 @@ Map<String, dynamic> _$AttendanceRecordModelToJson(
       'updatedBy': instance.updatedBy,
       'timestamp': instance.timestamp,
       'isConflict': instance.isConflict,
+      'isSynced': instance.isSynced,
     };
 
 const _$AttendanceStatusEnumMap = {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,19 +12,43 @@ import 'core/theme/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Hive
+  // Hive Initialization
+  // On Web, Hive stores data in IndexedDB.
   await Hive.initFlutter();
+
+  // Register Adapters
   Hive.registerAdapter(StudentModelAdapter());
   Hive.registerAdapter(AttendanceRecordModelAdapter());
   Hive.registerAdapter(AttendanceStatusAdapterTypeAdapter());
 
-  // Initialize Firebase (Try/Catch for environments without config)
+  // Firebase Initialization
+  // TODO: Add firebase_options.dart for Web/Mobile support
+  // if (kIsWeb) {
+  //   await Firebase.initializeApp(
+  //     options: const FirebaseOptions(
+  //       apiKey: "...",
+  //       authDomain: "...",
+  //       projectId: "...",
+  //       storageBucket: "...",
+  //       messagingSenderId: "...",
+  //       appId: "...",
+  //     ),
+  //   );
+  // } else {
+  //   await Firebase.initializeApp();
+  // }
+
   try {
-    // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     await Firebase.initializeApp();
+    // Placeholder for Firebase Hosting
+    // if (kIsWeb) {
+    //   // Firebase Hosting is handled via CLI deployment, no specific dart code needed
+    //   // unless using customized rewrite rules handled in firebase.json
+    // }
   } catch (e) {
-    // Ignore error in dev/mock environments without google-services.json
-    print('Firebase Init Failed (Expected in test env): $e');
+    if (kDebugMode) {
+      print('Firebase Init Failed: $e');
+    }
   }
 
   // Initialize Dependency Injection

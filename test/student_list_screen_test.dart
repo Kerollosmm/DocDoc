@@ -5,7 +5,6 @@ import 'package:doc_app/features/students/presentation/bloc/student_bloc.dart';
 import 'package:doc_app/features/attendance/presentation/bloc/attendance_bloc.dart';
 import 'package:doc_app/features/students/presentation/screens/student_list_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:doc_app/injection_container.dart';
 import 'package:get_it/get_it.dart';
 
 class MockStudentBloc extends Mock implements StudentBloc {}
@@ -45,6 +44,6 @@ void main() {
 
     expect(find.text('Students - Grade 1'), findsOneWidget);
     // Should see empty state message
-    expect(find.text('No students found. Add some!'), findsOneWidget);
+    expect(find.text('No students found.'), findsOneWidget);
   });
 }

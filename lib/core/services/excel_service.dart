@@ -12,9 +12,6 @@ class ExcelService {
     final List<Student> students = [];
 
     for (var table in excel.tables.keys) {
-      // Assume the first sheet is the one we want, or iterate all
-      // Assume columns: Name, PhoneNumber
-      // Skip header row
       final sheet = excel.tables[table];
       if (sheet == null) continue;
 
@@ -25,18 +22,15 @@ class ExcelService {
           continue;
         }
 
-        // Safety check for empty rows
         if (row.isEmpty) continue;
 
-        // Column 0: Name
         final nameCell = row.elementAtOrNull(0);
         if (nameCell == null || nameCell.value == null) continue;
 
         final name = nameCell.value.toString();
 
-        // Column 1: Phone (Optional)
         final phoneCell = row.elementAtOrNull(1);
-        final phone = phoneCell?.value?.toString();
+        final phone = phoneCell?.value?.toString() ?? '';
 
         students.add(Student(
           id: _uuid.v4(),

@@ -20,14 +20,16 @@ class StudentModelAdapter extends TypeAdapter<StudentModel> {
       id: fields[0] as String,
       name: fields[1] as String,
       grade: fields[2] as String,
-      phoneNumber: fields[3] as String?,
+      phoneNumber: fields[3] as String,
+      address: fields[4] as String?,
+      lastFetchTime: fields[5] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, StudentModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +37,11 @@ class StudentModelAdapter extends TypeAdapter<StudentModel> {
       ..writeByte(2)
       ..write(obj.grade)
       ..writeByte(3)
-      ..write(obj.phoneNumber);
+      ..write(obj.phoneNumber)
+      ..writeByte(4)
+      ..write(obj.address)
+      ..writeByte(5)
+      ..write(obj.lastFetchTime);
   }
 
   @override
@@ -57,7 +63,11 @@ StudentModel _$StudentModelFromJson(Map<String, dynamic> json) => StudentModel(
       id: json['id'] as String,
       name: json['name'] as String,
       grade: json['grade'] as String,
-      phoneNumber: json['phoneNumber'] as String?,
+      phoneNumber: json['phoneNumber'] as String,
+      address: json['address'] as String?,
+      lastFetchTime: json['lastFetchTime'] == null
+          ? null
+          : DateTime.parse(json['lastFetchTime'] as String),
     );
 
 Map<String, dynamic> _$StudentModelToJson(StudentModel instance) =>
@@ -66,4 +76,6 @@ Map<String, dynamic> _$StudentModelToJson(StudentModel instance) =>
       'name': instance.name,
       'grade': instance.grade,
       'phoneNumber': instance.phoneNumber,
+      'address': instance.address,
+      'lastFetchTime': instance.lastFetchTime?.toIso8601String(),
     };

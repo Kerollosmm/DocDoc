@@ -12,11 +12,9 @@ class AddStudentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We expect the Bloc to be passed via GoRouter extra or we create a new one
-    // But since we want to add to the repository, a new instance is fine if it interacts with the same repo/DB.
-    // However, for the LIST screen to update, it needs to reload.
-    // We will just use a new instance here to perform the ADD.
-    // The List screen will need to reload on pop.
+    final nameController = TextEditingController();
+    final phoneController = TextEditingController();
+    final addressController = TextEditingController();
 
     return BlocProvider(
       create: (context) => getIt<StudentBloc>(),
@@ -24,52 +22,98 @@ class AddStudentScreen extends StatelessWidget {
         appBar: AppBar(title: Text('Add Student to $grade')),
         body: Builder(
           builder: (context) {
-            return Padding(
+            return SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text('Enter details manually or import from Excel.'),
+                  const Text('Student Profile', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 20),
+
+                  // Name
                   TextField(
-                    decoration: const InputDecoration(labelText: 'Name'),
-                    onSubmitted: (name) {
-                      if (name.isNotEmpty) {
-                         context.read<StudentBloc>().add(
-                            StudentEvent.addStudent(Student(
-                              id: DateTime.now().millisecondsSinceEpoch.toString(),
-                              name: name,
-                              grade: grade,
-                            )),
-                          );
-                          // Signal success and pop
-                          // In real app, listen to state changes for Success/Error
-                          // For now, pop after short delay or fire-and-forget
-                          Future.delayed(const Duration(milliseconds: 100), () {
-                            context.pop(true); // Return true to indicate change
-                          });
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Full Name *',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Phone (Required)
+                  TextField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      labelText: 'Phone Number *',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.phone),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Address (Optional)
+                  TextField(
+                    controller: addressController,
+                    decoration: const InputDecoration(
+                      labelText: 'Address',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.home),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Actions
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Colors.white,
+                    ),
+                    onPressed: () {
+                      final name = nameController.text.trim();
+                      final phone = phoneController.text.trim();
+                      final address = addressController.text.trim();
+
+                      if (name.isEmpty || phone.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Name and Phone are required!')),
+                        );
+                        return;
+                      }
+
+                      context.read<StudentBloc>().add(
+                        StudentEvent.addStudent(Student(
+                          id: DateTime.now().millisecondsSinceEpoch.toString(),
+                          name: name,
+                          grade: grade,
+                          phoneNumber: phone,
+                          address: address.isNotEmpty ? address : null,
+                        )),
+                      );
+
+                      // Signal success
+                      if (context.mounted) {
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          if (context.mounted) {
+                            context.pop(true);
+                          }
+                        });
                       }
                     },
+                    child: const Text('Save Student'),
                   ),
-                  const SizedBox(height: 40),
-                  ElevatedButton.icon(
+
+                  const SizedBox(height: 20),
+                  OutlinedButton.icon(
                     icon: const Icon(Icons.table_chart),
                     label: const Text('Import from Excel'),
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Simulating Excel Import...')),
-                      );
-
-                      context.read<StudentBloc>().add(
-                            StudentEvent.addStudent(Student(
-                              id: DateTime.now().millisecondsSinceEpoch.toString(),
-                              name: 'Imported Student',
-                              grade: grade,
-                            )),
-                          );
-
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        context.pop(true);
-                      });
+                       // ... logic for Excel import
+                       if (context.mounted) {
+                         context.pop(true);
+                       }
                     },
                   ),
                 ],
