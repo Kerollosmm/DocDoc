@@ -1,5 +1,5 @@
-name: doc_app
-description: "A new Flutter project."
+name: csms_app
+description: "A unified offline-first application for Church Servants to manage attendance and results."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -59,6 +59,11 @@ dependencies:
   go_router: ^17.0.1
   internet_connection_checker: ^3.0.1
   flutter_secure_storage: ^10.0.0
+  dartz: ^0.10.1
+  firebase_crashlytics: ^5.0.6
+  file_picker: ^10.3.8
+  share_plus: ^12.0.1
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:

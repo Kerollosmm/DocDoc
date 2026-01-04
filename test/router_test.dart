@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:doc_app/core/routes/app_router.dart';
+import 'package:csms_app/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 
 void main() {

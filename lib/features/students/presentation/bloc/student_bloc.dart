@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:share_plus/share_plus.dart';
+import '../../../../core/services/excel_service.dart';
 import '../../../../domain/entities/student.dart';
 import '../../../../domain/repositories/student_repository.dart';
 
@@ -11,6 +13,9 @@ class StudentEvent with _$StudentEvent {
   const factory StudentEvent.loadStudents(String grade) = _LoadStudents;
   const factory StudentEvent.addStudent(Student student) = _AddStudent;
   const factory StudentEvent.deleteStudent(String id) = _DeleteStudent;
+  const factory StudentEvent.updateStudent(Student student) = _UpdateStudent;
+  const factory StudentEvent.importStudents(String path, String grade) = _ImportStudents;
+  const factory StudentEvent.exportStudents(String grade) = _ExportStudents;
 }
 
 @freezed
@@ -24,37 +29,83 @@ class StudentState with _$StudentState {
 @injectable
 class StudentBloc extends Bloc<StudentEvent, StudentState> {
   final StudentRepository _repository;
+  final ExcelService _excelService; // Directly use service for export as repo might not need to handle file generation logic directly if it's UI/Service related, but repo handles data. The requirement said "Add exportStudents... Save the file... return File path" in ExcelService. And Bloc uses Share.
 
-  StudentBloc(this._repository) : super(const StudentState.initial()) {
+  StudentBloc(this._repository, this._excelService) : super(const StudentState.initial()) {
     on<_LoadStudents>((event, emit) async {
       emit(const StudentState.loading());
-      try {
-        final students = await _repository.getStudents(event.grade);
-        emit(StudentState.loaded(students));
-      } catch (e) {
-        emit(StudentState.error(e.toString()));
-      }
+      final result = await _repository.getStudents(event.grade);
+
+      result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (students) => emit(StudentState.loaded(students)),
+      );
     });
 
     on<_AddStudent>((event, emit) async {
-      try {
-        await _repository.addStudent(event.student);
-        // Reload students for the same grade
-        add(StudentEvent.loadStudents(event.student.grade));
-      } catch (e) {
-        emit(StudentState.error(e.toString()));
-      }
+      final result = await _repository.addStudent(event.student);
+
+      result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (success) => add(StudentEvent.loadStudents(event.student.grade)),
+      );
+    });
+
+    on<_UpdateStudent>((event, emit) async {
+       final result = await _repository.updateStudent(event.student);
+
+       result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (success) => add(StudentEvent.loadStudents(event.student.grade)),
+      );
     });
 
     on<_DeleteStudent>((event, emit) async {
-      try {
-        await _repository.deleteStudent(event.id);
-        // Note: In a real app we might need to know the grade to reload.
-        // For now, we assume the UI handles reloading or optimistically updates.
-        // Or we could store the current grade in the state.
-      } catch (e) {
-        emit(StudentState.error(e.toString()));
-      }
+      final result = await _repository.deleteStudent(event.id);
+
+      result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (success) {
+           // Should trigger reload if we had grade, but we might not know it here without state.
+           // However, usually UI will trigger reload or we can store grade in state.
+           // For now, if we are in Loaded state, we can re-fetch.
+           if (state is _Loaded) {
+             final currentStudents = (state as _Loaded).students;
+             if (currentStudents.isNotEmpty) {
+               add(StudentEvent.loadStudents(currentStudents.first.grade));
+             }
+           }
+        },
+      );
+    });
+
+    on<_ImportStudents>((event, emit) async {
+      emit(const StudentState.loading());
+      final result = await _repository.importStudentsFromExcel(event.path, event.grade);
+
+      result.fold(
+        (failure) => emit(StudentState.error(failure.message)),
+        (students) => add(StudentEvent.loadStudents(event.grade)),
+      );
+    });
+
+    on<_ExportStudents>((event, emit) async {
+       // Logic: Get current students (from state or repo), generate file, share.
+       // We can fetch fresh data first.
+       final result = await _repository.getStudents(event.grade);
+
+       await result.fold(
+         (failure) async => emit(StudentState.error(failure.message)),
+         (students) async {
+            try {
+              final file = await _excelService.exportStudents(students);
+              await Share.shareXFiles([XFile(file.path)], text: 'Students Export - ${event.grade}');
+              emit(StudentState.loaded(students)); // Maintain state
+            } catch (e) {
+              emit(StudentState.error('Failed to export: $e'));
+            }
+         }
+       );
     });
   }
 }

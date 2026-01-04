@@ -33,6 +33,13 @@ class StudentListScreen extends StatelessWidget {
             title: Text('Students - $grade'),
             actions: [
               IconButton(
+                icon: const Icon(Icons.share),
+                tooltip: 'Export to Excel',
+                onPressed: () {
+                  context.read<StudentBloc>().add(StudentEvent.exportStudents(grade));
+                }
+              ),
+              IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () async {
                    // Navigate to Add Student and wait for result
@@ -47,36 +54,46 @@ class StudentListScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: BlocBuilder<StudentBloc, StudentState>(
-            builder: (context, studentState) {
-              return studentState.maybeWhen(
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (msg) => Center(child: Text('Error: $msg')),
-                loaded: (students) {
-                  if (students.isEmpty) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('No students found.'),
-                          TextButton(
-                            onPressed: () async {
-                              final result = await context.push<bool>('/add-student/$grade');
-                              if (result == true && context.mounted) {
-                                context.read<StudentBloc>().add(StudentEvent.loadStudents(grade));
-                              }
-                            },
-                            child: const Text('Add Student'),
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                  return _StudentListView(students: students, date: date, grade: grade);
-                },
-                orElse: () => const SizedBox(),
-              );
+          body: BlocListener<StudentBloc, StudentState>(
+            listener: (context, state) {
+               state.maybeWhen(
+                 error: (msg) {
+                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+                 },
+                 orElse: () {},
+               );
             },
+            child: BlocBuilder<StudentBloc, StudentState>(
+              builder: (context, studentState) {
+                return studentState.maybeWhen(
+                  loading: () => const Center(child: CircularProgressIndicator()),
+                  error: (msg) => Center(child: Text('Error: $msg')),
+                  loaded: (students) {
+                    if (students.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('No students found.'),
+                            TextButton(
+                              onPressed: () async {
+                                final result = await context.push<bool>('/add-student/$grade');
+                                if (result == true && context.mounted) {
+                                  context.read<StudentBloc>().add(StudentEvent.loadStudents(grade));
+                                }
+                              },
+                              child: const Text('Add Student'),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                    return _StudentListView(students: students, date: date, grade: grade);
+                  },
+                  orElse: () => const SizedBox(),
+                );
+              },
+            ),
           ),
         );
       }),
@@ -114,6 +131,13 @@ class _StudentListView extends StatelessWidget {
               subtitle: isConflict
                 ? const Text('Conflict Detected!', style: TextStyle(color: Colors.orange))
                 : null,
+              onTap: () async {
+                 // Navigate to Edit
+                 final result = await context.push<bool>('/edit-student/$grade', extra: student);
+                 if (result == true && context.mounted) {
+                   context.read<StudentBloc>().add(StudentEvent.loadStudents(grade));
+                 }
+              },
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -161,7 +185,6 @@ class _StudentListView extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.warning, color: Colors.orange),
                       onPressed: () {
-                        // Resolve Conflict Dialog (Simplification)
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Resolve conflict manually...')),
                         );

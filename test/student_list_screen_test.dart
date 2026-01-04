@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:doc_app/features/students/presentation/bloc/student_bloc.dart';
-import 'package:doc_app/features/attendance/presentation/bloc/attendance_bloc.dart';
-import 'package:doc_app/features/students/presentation/screens/student_list_screen.dart';
+import 'package:csms_app/features/students/presentation/bloc/student_bloc.dart';
+import 'package:csms_app/features/attendance/presentation/bloc/attendance_bloc.dart';
+import 'package:csms_app/features/students/presentation/screens/student_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 

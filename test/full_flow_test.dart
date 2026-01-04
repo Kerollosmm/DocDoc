@@ -1,15 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:doc_app/features/students/presentation/bloc/student_bloc.dart';
-import 'package:doc_app/features/attendance/presentation/bloc/attendance_bloc.dart';
-import 'package:doc_app/domain/entities/student.dart';
-import 'package:doc_app/domain/entities/attendance_record.dart';
+import 'package:csms_app/features/students/presentation/bloc/student_bloc.dart';
+import 'package:csms_app/features/attendance/presentation/bloc/attendance_bloc.dart';
+import 'package:csms_app/domain/entities/student.dart';
+import 'package:csms_app/domain/entities/attendance_record.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:doc_app/domain/repositories/student_repository.dart';
-import 'package:doc_app/domain/repositories/attendance_repository.dart';
+import 'package:csms_app/domain/repositories/student_repository.dart';
+import 'package:csms_app/domain/repositories/attendance_repository.dart';
+import 'package:csms_app/core/services/excel_service.dart';
+import 'package:dartz/dartz.dart';
 
 // Mocks
 class MockStudentRepository extends Mock implements StudentRepository {}
 class MockAttendanceRepository extends Mock implements AttendanceRepository {}
+class MockExcelService extends Mock implements ExcelService {}
 
 void main() {
   group('Full Flow Logic Test', () {
@@ -17,11 +20,13 @@ void main() {
     late AttendanceBloc attendanceBloc;
     late MockStudentRepository mockStudentRepo;
     late MockAttendanceRepository mockAttendanceRepo;
+    late MockExcelService mockExcelService;
 
     setUp(() {
       mockStudentRepo = MockStudentRepository();
       mockAttendanceRepo = MockAttendanceRepository();
-      studentBloc = StudentBloc(mockStudentRepo);
+      mockExcelService = MockExcelService();
+      studentBloc = StudentBloc(mockStudentRepo, mockExcelService);
       attendanceBloc = AttendanceBloc(mockAttendanceRepo);
 
       // Register fallbacks
@@ -44,8 +49,11 @@ void main() {
         grade: 'Grade 5',
         phoneNumber: '1234567890'
       );
-      when(() => mockStudentRepo.addStudent(any())).thenAnswer((_) async {});
-      when(() => mockStudentRepo.getStudents('Grade 5')).thenAnswer((_) async => [student]);
+      // Updated: Return Either
+      when(() => mockStudentRepo.addStudent(any()))
+          .thenAnswer((_) async => const Right(null));
+      when(() => mockStudentRepo.getStudents('Grade 5'))
+          .thenAnswer((_) async => Right([student]));
 
       studentBloc.add(StudentEvent.addStudent(student));
 
