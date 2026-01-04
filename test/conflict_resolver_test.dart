@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:doc_app/domain/logic/conflict_resolver.dart';
-import 'package:doc_app/domain/entities/attendance_record.dart';
+import 'package:csms_app/domain/logic/conflict_resolver.dart';
+import 'package:csms_app/domain/entities/attendance_record.dart';
 
 void main() {
   group('ConflictResolver', () {

@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:doc_app/features/students/presentation/bloc/student_bloc.dart';
-import 'package:doc_app/features/attendance/presentation/bloc/attendance_bloc.dart';
-import 'package:doc_app/domain/entities/student.dart';
-import 'package:doc_app/domain/entities/attendance_record.dart';
+import 'package:csms_app/features/students/presentation/bloc/student_bloc.dart';
+import 'package:csms_app/features/attendance/presentation/bloc/attendance_bloc.dart';
+import 'package:csms_app/domain/entities/student.dart';
+import 'package:csms_app/domain/entities/attendance_record.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:doc_app/domain/repositories/student_repository.dart';
-import 'package:doc_app/domain/repositories/attendance_repository.dart';
+import 'package:csms_app/domain/repositories/student_repository.dart';
+import 'package:csms_app/domain/repositories/attendance_repository.dart';
 
 // Mocks
 class MockStudentRepository extends Mock implements StudentRepository {}

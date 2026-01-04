@@ -4,24 +4,42 @@ import '../../domain/entities/student.dart';
 
 part 'student_model.g.dart';
 
+/// A data model representing a student, compatible with Hive and JSON.
+///
+/// This model extends the [Student] entity and adds serialization support
+/// for local storage (Hive) and remote synchronization (JSON/Firestore).
+/// It also includes [lastFetchTime] for implementing cache-first strategies
+/// to minimize Firestore reads.
 @HiveType(typeId: 0)
 @JsonSerializable()
 class StudentModel extends Student {
+  /// The unique identifier of the student.
   @override
   @HiveField(0)
   final String id;
+
+  /// The full name of the student.
   @override
   @HiveField(1)
   final String name;
+
+  /// The grade level of the student (e.g., "Grade 10").
   @override
   @HiveField(2)
   final String grade;
+
+  /// The primary phone number for contact.
   @override
   @HiveField(3)
   final String phoneNumber;
+
+  /// The physical address of the student (optional).
   @override
   @HiveField(4)
   final String? address;
+
+  /// The timestamp when this record was last fetched from the server.
+  /// Used to determine if the local cache is stale (typically 24-hour expiry).
   @HiveField(5)
   final DateTime? lastFetchTime; // For cache expiry
 
