@@ -12,6 +12,7 @@ void main() {
       date: '2023-10-27',
       updatedBy: 'ServantA',
       timestamp: 1000,
+      grade: 'Grade 5',
     );
 
     test('should return Remote record if statuses match (Present/Present)', () {

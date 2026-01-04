@@ -24,41 +24,57 @@ class SyncRepositoryImpl implements SyncRepository {
       final localRecords = await _localDataSource.getAttendance(date, grade);
       final localMap = {for (var r in localRecords) r.studentId: r};
 
-      if (!docSnap.exists) {
-        return;
-      }
-
-      final data = docSnap.data()!;
-      final Map<String, dynamic> remoteRecordsJson = data['records'] as Map<String, dynamic>? ?? {};
-
       bool hasChanges = false;
 
-      remoteRecordsJson.forEach((studentId, recordJson) {
-        final remoteRecord = AttendanceRecordModel.fromJson(recordJson as Map<String, dynamic>);
+      if (docSnap.exists) {
+        final data = docSnap.data()!;
+        final Map<String, dynamic> remoteRecordsJson = data['records'] as Map<String, dynamic>? ?? {};
 
-        if (localMap.containsKey(studentId)) {
-          final localRecord = localMap[studentId]!;
+        remoteRecordsJson.forEach((studentId, recordJson) {
+          final remoteRecord = AttendanceRecordModel.fromJson(recordJson as Map<String, dynamic>);
 
-          if (localRecord.status != remoteRecord.status) {
-            // resolve returns AttendanceRecord (Entity)
-            final resolvedEntity = _resolver.resolve(localRecord, remoteRecord);
-            // Convert back to Model to store
-            final resolvedModel = AttendanceRecordModel.fromEntity(resolvedEntity);
-            localMap[studentId] = resolvedModel;
+          if (localMap.containsKey(studentId)) {
+            final localRecord = localMap[studentId]!;
+
+            if (localRecord.status != remoteRecord.status) {
+              // resolve returns AttendanceRecord (Entity)
+              final resolvedEntity = _resolver.resolve(localRecord, remoteRecord);
+              // Convert back to Model to store
+              final resolvedModel = AttendanceRecordModel.fromEntity(resolvedEntity);
+              localMap[studentId] = resolvedModel;
+              hasChanges = true;
+            }
+          } else {
+            // New from remote
+            localMap[studentId] = remoteRecord;
             hasChanges = true;
           }
-        } else {
-          _localDataSource.saveAttendance(remoteRecord);
-        }
-      });
+        });
+      } else {
+        // No remote doc? Push local (implicitly hasChanges if local > 0)
+        if (localMap.isNotEmpty) hasChanges = true;
+      }
 
+      // 1. Save Resolved back to Local
       if (hasChanges) {
         for (var record in localMap.values) {
-          if (record.isConflict) {
-            await _localDataSource.saveAttendance(record);
-          }
+          await _localDataSource.saveAttendance(record);
         }
       }
+
+      // 2. Write Back to Firestore (Critical Fix)
+      // Convert Map<StudentId, Model> to Map<StudentId, Json>
+      final Map<String, dynamic> mergedRecordsJson = {};
+      localMap.forEach((key, value) {
+        mergedRecordsJson[key] = value.toJson();
+      });
+
+      await docRef.set({
+        'date': date,
+        'class_id': grade,
+        'records': mergedRecordsJson,
+        'last_updated': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
 
     } catch (e) {
       developer.log('Sync failed: $e', name: 'SyncRepository');

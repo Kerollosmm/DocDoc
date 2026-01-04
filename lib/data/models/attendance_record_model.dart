@@ -28,6 +28,9 @@ class AttendanceRecordModel extends AttendanceRecord {
   @override
   @HiveField(6)
   final bool isSynced;
+  @override
+  @HiveField(7)
+  final String grade;
 
   const AttendanceRecordModel({
     required this.studentId,
@@ -35,6 +38,7 @@ class AttendanceRecordModel extends AttendanceRecord {
     required this.date,
     required this.updatedBy,
     required this.timestamp,
+    required this.grade,
     this.isConflict = false,
     this.isSynced = false,
   }) : super(
@@ -43,6 +47,7 @@ class AttendanceRecordModel extends AttendanceRecord {
           date: date,
           updatedBy: updatedBy,
           timestamp: timestamp,
+          grade: grade,
           isConflict: isConflict,
           isSynced: isSynced,
         );
@@ -59,6 +64,7 @@ class AttendanceRecordModel extends AttendanceRecord {
       date: record.date,
       updatedBy: record.updatedBy,
       timestamp: record.timestamp,
+      grade: record.grade,
       isConflict: record.isConflict,
       isSynced: record.isSynced,
     );

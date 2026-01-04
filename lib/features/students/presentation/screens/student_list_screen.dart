@@ -72,7 +72,7 @@ class StudentListScreen extends StatelessWidget {
                       ),
                     );
                   }
-                  return _StudentListView(students: students, date: date);
+                  return _StudentListView(students: students, date: date, grade: grade);
                 },
                 orElse: () => const SizedBox(),
               );
@@ -87,8 +87,9 @@ class StudentListScreen extends StatelessWidget {
 class _StudentListView extends StatelessWidget {
   final List<Student> students;
   final String date;
+  final String grade;
 
-  const _StudentListView({required this.students, required this.date});
+  const _StudentListView({required this.students, required this.date, required this.grade});
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +131,7 @@ class _StudentListView extends StatelessWidget {
                                 date: date,
                                 updatedBy: 'user',
                                 timestamp: DateTime.now().millisecondsSinceEpoch,
+                                grade: grade,
                               ),
                             ),
                           );
@@ -149,6 +151,7 @@ class _StudentListView extends StatelessWidget {
                                 date: date,
                                 updatedBy: 'user',
                                 timestamp: DateTime.now().millisecondsSinceEpoch,
+                                grade: grade,
                               ),
                             ),
                           );

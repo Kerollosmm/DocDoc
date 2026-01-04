@@ -33,25 +33,3 @@ class ConflictResolver {
     );
   }
 }
-
-extension AttendanceRecordCopy on AttendanceRecord {
-  AttendanceRecord copyWith({
-    String? studentId,
-    AttendanceStatus? status,
-    String? date,
-    String? updatedBy,
-    int? timestamp,
-    bool? isConflict,
-    bool? isSynced,
-  }) {
-    return AttendanceRecord(
-      studentId: studentId ?? this.studentId,
-      status: status ?? this.status,
-      date: date ?? this.date,
-      updatedBy: updatedBy ?? this.updatedBy,
-      timestamp: timestamp ?? this.timestamp,
-      isConflict: isConflict ?? this.isConflict,
-      isSynced: isSynced ?? this.isSynced,
-    );
-  }
-}

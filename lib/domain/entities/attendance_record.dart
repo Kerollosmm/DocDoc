@@ -8,6 +8,7 @@ class AttendanceRecord extends Equatable {
   final String date; // YYYY-MM-DD
   final String updatedBy;
   final int timestamp;
+  final String grade;
   final bool isConflict;
   final bool isSynced;
 
@@ -17,10 +18,33 @@ class AttendanceRecord extends Equatable {
     required this.date,
     required this.updatedBy,
     required this.timestamp,
+    required this.grade,
     this.isConflict = false,
     this.isSynced = false,
   });
 
+  AttendanceRecord copyWith({
+    String? studentId,
+    AttendanceStatus? status,
+    String? date,
+    String? updatedBy,
+    int? timestamp,
+    String? grade,
+    bool? isConflict,
+    bool? isSynced,
+  }) {
+    return AttendanceRecord(
+      studentId: studentId ?? this.studentId,
+      status: status ?? this.status,
+      date: date ?? this.date,
+      updatedBy: updatedBy ?? this.updatedBy,
+      timestamp: timestamp ?? this.timestamp,
+      grade: grade ?? this.grade,
+      isConflict: isConflict ?? this.isConflict,
+      isSynced: isSynced ?? this.isSynced,
+    );
+  }
+
   @override
-  List<Object?> get props => [studentId, status, date, updatedBy, timestamp, isConflict, isSynced];
+  List<Object?> get props => [studentId, status, date, updatedBy, timestamp, grade, isConflict, isSynced];
 }
