@@ -6,11 +6,13 @@ import 'package:csms_app/domain/entities/attendance_record.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:csms_app/domain/repositories/student_repository.dart';
 import 'package:csms_app/domain/repositories/attendance_repository.dart';
+import 'package:csms_app/core/services/excel_service.dart';
 import 'package:dartz/dartz.dart';
 
 // Mocks
 class MockStudentRepository extends Mock implements StudentRepository {}
 class MockAttendanceRepository extends Mock implements AttendanceRepository {}
+class MockExcelService extends Mock implements ExcelService {}
 
 void main() {
   group('Full Flow Logic Test', () {
@@ -18,11 +20,13 @@ void main() {
     late AttendanceBloc attendanceBloc;
     late MockStudentRepository mockStudentRepo;
     late MockAttendanceRepository mockAttendanceRepo;
+    late MockExcelService mockExcelService;
 
     setUp(() {
       mockStudentRepo = MockStudentRepository();
       mockAttendanceRepo = MockAttendanceRepository();
-      studentBloc = StudentBloc(mockStudentRepo);
+      mockExcelService = MockExcelService();
+      studentBloc = StudentBloc(mockStudentRepo, mockExcelService);
       attendanceBloc = AttendanceBloc(mockAttendanceRepo);
 
       // Register fallbacks

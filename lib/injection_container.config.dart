@@ -39,9 +39,9 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final coreModule = _$CoreModule();
-    gh.lazySingleton<_i776.ExcelService>(() => _i776.ExcelService());
     gh.lazySingleton<_i973.InternetConnectionChecker>(
         () => coreModule.internetConnectionChecker);
+    gh.lazySingleton<_i776.ExcelService>(() => _i776.ExcelService());
     gh.lazySingleton<_i660.LocalAttendanceDataSource>(
         () => _i660.HiveAttendanceDataSource());
     gh.lazySingleton<_i249.LocalStudentDataSource>(
@@ -55,14 +55,17 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i660.LocalAttendanceDataSource>(),
               gh<_i193.SyncRepository>(),
             ));
-    gh.factory<_i469.AttendanceBloc>(
-        () => _i469.AttendanceBloc(gh<_i178.AttendanceRepository>()));
     gh.lazySingleton<_i243.StudentRepository>(() => _i947.StudentRepositoryImpl(
           gh<_i249.LocalStudentDataSource>(),
           gh<_i75.NetworkInfo>(),
+          gh<_i776.ExcelService>(),
         ));
-    gh.factory<_i357.StudentBloc>(
-        () => _i357.StudentBloc(gh<_i243.StudentRepository>()));
+    gh.factory<_i469.AttendanceBloc>(
+        () => _i469.AttendanceBloc(gh<_i178.AttendanceRepository>()));
+    gh.factory<_i357.StudentBloc>(() => _i357.StudentBloc(
+          gh<_i243.StudentRepository>(),
+          gh<_i776.ExcelService>(),
+        ));
     return this;
   }
 }

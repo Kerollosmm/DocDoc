@@ -21,6 +21,9 @@ mixin _$StudentEvent {
     required TResult Function(String grade) loadStudents,
     required TResult Function(Student student) addStudent,
     required TResult Function(String id) deleteStudent,
+    required TResult Function(Student student) updateStudent,
+    required TResult Function(String path, String grade) importStudents,
+    required TResult Function(String grade) exportStudents,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +31,9 @@ mixin _$StudentEvent {
     TResult? Function(String grade)? loadStudents,
     TResult? Function(Student student)? addStudent,
     TResult? Function(String id)? deleteStudent,
+    TResult? Function(Student student)? updateStudent,
+    TResult? Function(String path, String grade)? importStudents,
+    TResult? Function(String grade)? exportStudents,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +41,9 @@ mixin _$StudentEvent {
     TResult Function(String grade)? loadStudents,
     TResult Function(Student student)? addStudent,
     TResult Function(String id)? deleteStudent,
+    TResult Function(Student student)? updateStudent,
+    TResult Function(String path, String grade)? importStudents,
+    TResult Function(String grade)? exportStudents,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +52,9 @@ mixin _$StudentEvent {
     required TResult Function(_LoadStudents value) loadStudents,
     required TResult Function(_AddStudent value) addStudent,
     required TResult Function(_DeleteStudent value) deleteStudent,
+    required TResult Function(_UpdateStudent value) updateStudent,
+    required TResult Function(_ImportStudents value) importStudents,
+    required TResult Function(_ExportStudents value) exportStudents,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +62,9 @@ mixin _$StudentEvent {
     TResult? Function(_LoadStudents value)? loadStudents,
     TResult? Function(_AddStudent value)? addStudent,
     TResult? Function(_DeleteStudent value)? deleteStudent,
+    TResult? Function(_UpdateStudent value)? updateStudent,
+    TResult? Function(_ImportStudents value)? importStudents,
+    TResult? Function(_ExportStudents value)? exportStudents,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +72,9 @@ mixin _$StudentEvent {
     TResult Function(_LoadStudents value)? loadStudents,
     TResult Function(_AddStudent value)? addStudent,
     TResult Function(_DeleteStudent value)? deleteStudent,
+    TResult Function(_UpdateStudent value)? updateStudent,
+    TResult Function(_ImportStudents value)? importStudents,
+    TResult Function(_ExportStudents value)? exportStudents,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -147,6 +165,9 @@ class _$LoadStudentsImpl implements _LoadStudents {
     required TResult Function(String grade) loadStudents,
     required TResult Function(Student student) addStudent,
     required TResult Function(String id) deleteStudent,
+    required TResult Function(Student student) updateStudent,
+    required TResult Function(String path, String grade) importStudents,
+    required TResult Function(String grade) exportStudents,
   }) {
     return loadStudents(grade);
   }
@@ -157,6 +178,9 @@ class _$LoadStudentsImpl implements _LoadStudents {
     TResult? Function(String grade)? loadStudents,
     TResult? Function(Student student)? addStudent,
     TResult? Function(String id)? deleteStudent,
+    TResult? Function(Student student)? updateStudent,
+    TResult? Function(String path, String grade)? importStudents,
+    TResult? Function(String grade)? exportStudents,
   }) {
     return loadStudents?.call(grade);
   }
@@ -167,6 +191,9 @@ class _$LoadStudentsImpl implements _LoadStudents {
     TResult Function(String grade)? loadStudents,
     TResult Function(Student student)? addStudent,
     TResult Function(String id)? deleteStudent,
+    TResult Function(Student student)? updateStudent,
+    TResult Function(String path, String grade)? importStudents,
+    TResult Function(String grade)? exportStudents,
     required TResult orElse(),
   }) {
     if (loadStudents != null) {
@@ -181,6 +208,9 @@ class _$LoadStudentsImpl implements _LoadStudents {
     required TResult Function(_LoadStudents value) loadStudents,
     required TResult Function(_AddStudent value) addStudent,
     required TResult Function(_DeleteStudent value) deleteStudent,
+    required TResult Function(_UpdateStudent value) updateStudent,
+    required TResult Function(_ImportStudents value) importStudents,
+    required TResult Function(_ExportStudents value) exportStudents,
   }) {
     return loadStudents(this);
   }
@@ -191,6 +221,9 @@ class _$LoadStudentsImpl implements _LoadStudents {
     TResult? Function(_LoadStudents value)? loadStudents,
     TResult? Function(_AddStudent value)? addStudent,
     TResult? Function(_DeleteStudent value)? deleteStudent,
+    TResult? Function(_UpdateStudent value)? updateStudent,
+    TResult? Function(_ImportStudents value)? importStudents,
+    TResult? Function(_ExportStudents value)? exportStudents,
   }) {
     return loadStudents?.call(this);
   }
@@ -201,6 +234,9 @@ class _$LoadStudentsImpl implements _LoadStudents {
     TResult Function(_LoadStudents value)? loadStudents,
     TResult Function(_AddStudent value)? addStudent,
     TResult Function(_DeleteStudent value)? deleteStudent,
+    TResult Function(_UpdateStudent value)? updateStudent,
+    TResult Function(_ImportStudents value)? importStudents,
+    TResult Function(_ExportStudents value)? exportStudents,
     required TResult orElse(),
   }) {
     if (loadStudents != null) {
@@ -286,6 +322,9 @@ class _$AddStudentImpl implements _AddStudent {
     required TResult Function(String grade) loadStudents,
     required TResult Function(Student student) addStudent,
     required TResult Function(String id) deleteStudent,
+    required TResult Function(Student student) updateStudent,
+    required TResult Function(String path, String grade) importStudents,
+    required TResult Function(String grade) exportStudents,
   }) {
     return addStudent(student);
   }
@@ -296,6 +335,9 @@ class _$AddStudentImpl implements _AddStudent {
     TResult? Function(String grade)? loadStudents,
     TResult? Function(Student student)? addStudent,
     TResult? Function(String id)? deleteStudent,
+    TResult? Function(Student student)? updateStudent,
+    TResult? Function(String path, String grade)? importStudents,
+    TResult? Function(String grade)? exportStudents,
   }) {
     return addStudent?.call(student);
   }
@@ -306,6 +348,9 @@ class _$AddStudentImpl implements _AddStudent {
     TResult Function(String grade)? loadStudents,
     TResult Function(Student student)? addStudent,
     TResult Function(String id)? deleteStudent,
+    TResult Function(Student student)? updateStudent,
+    TResult Function(String path, String grade)? importStudents,
+    TResult Function(String grade)? exportStudents,
     required TResult orElse(),
   }) {
     if (addStudent != null) {
@@ -320,6 +365,9 @@ class _$AddStudentImpl implements _AddStudent {
     required TResult Function(_LoadStudents value) loadStudents,
     required TResult Function(_AddStudent value) addStudent,
     required TResult Function(_DeleteStudent value) deleteStudent,
+    required TResult Function(_UpdateStudent value) updateStudent,
+    required TResult Function(_ImportStudents value) importStudents,
+    required TResult Function(_ExportStudents value) exportStudents,
   }) {
     return addStudent(this);
   }
@@ -330,6 +378,9 @@ class _$AddStudentImpl implements _AddStudent {
     TResult? Function(_LoadStudents value)? loadStudents,
     TResult? Function(_AddStudent value)? addStudent,
     TResult? Function(_DeleteStudent value)? deleteStudent,
+    TResult? Function(_UpdateStudent value)? updateStudent,
+    TResult? Function(_ImportStudents value)? importStudents,
+    TResult? Function(_ExportStudents value)? exportStudents,
   }) {
     return addStudent?.call(this);
   }
@@ -340,6 +391,9 @@ class _$AddStudentImpl implements _AddStudent {
     TResult Function(_LoadStudents value)? loadStudents,
     TResult Function(_AddStudent value)? addStudent,
     TResult Function(_DeleteStudent value)? deleteStudent,
+    TResult Function(_UpdateStudent value)? updateStudent,
+    TResult Function(_ImportStudents value)? importStudents,
+    TResult Function(_ExportStudents value)? exportStudents,
     required TResult orElse(),
   }) {
     if (addStudent != null) {
@@ -425,6 +479,9 @@ class _$DeleteStudentImpl implements _DeleteStudent {
     required TResult Function(String grade) loadStudents,
     required TResult Function(Student student) addStudent,
     required TResult Function(String id) deleteStudent,
+    required TResult Function(Student student) updateStudent,
+    required TResult Function(String path, String grade) importStudents,
+    required TResult Function(String grade) exportStudents,
   }) {
     return deleteStudent(id);
   }
@@ -435,6 +492,9 @@ class _$DeleteStudentImpl implements _DeleteStudent {
     TResult? Function(String grade)? loadStudents,
     TResult? Function(Student student)? addStudent,
     TResult? Function(String id)? deleteStudent,
+    TResult? Function(Student student)? updateStudent,
+    TResult? Function(String path, String grade)? importStudents,
+    TResult? Function(String grade)? exportStudents,
   }) {
     return deleteStudent?.call(id);
   }
@@ -445,6 +505,9 @@ class _$DeleteStudentImpl implements _DeleteStudent {
     TResult Function(String grade)? loadStudents,
     TResult Function(Student student)? addStudent,
     TResult Function(String id)? deleteStudent,
+    TResult Function(Student student)? updateStudent,
+    TResult Function(String path, String grade)? importStudents,
+    TResult Function(String grade)? exportStudents,
     required TResult orElse(),
   }) {
     if (deleteStudent != null) {
@@ -459,6 +522,9 @@ class _$DeleteStudentImpl implements _DeleteStudent {
     required TResult Function(_LoadStudents value) loadStudents,
     required TResult Function(_AddStudent value) addStudent,
     required TResult Function(_DeleteStudent value) deleteStudent,
+    required TResult Function(_UpdateStudent value) updateStudent,
+    required TResult Function(_ImportStudents value) importStudents,
+    required TResult Function(_ExportStudents value) exportStudents,
   }) {
     return deleteStudent(this);
   }
@@ -469,6 +535,9 @@ class _$DeleteStudentImpl implements _DeleteStudent {
     TResult? Function(_LoadStudents value)? loadStudents,
     TResult? Function(_AddStudent value)? addStudent,
     TResult? Function(_DeleteStudent value)? deleteStudent,
+    TResult? Function(_UpdateStudent value)? updateStudent,
+    TResult? Function(_ImportStudents value)? importStudents,
+    TResult? Function(_ExportStudents value)? exportStudents,
   }) {
     return deleteStudent?.call(this);
   }
@@ -479,6 +548,9 @@ class _$DeleteStudentImpl implements _DeleteStudent {
     TResult Function(_LoadStudents value)? loadStudents,
     TResult Function(_AddStudent value)? addStudent,
     TResult Function(_DeleteStudent value)? deleteStudent,
+    TResult Function(_UpdateStudent value)? updateStudent,
+    TResult Function(_ImportStudents value)? importStudents,
+    TResult Function(_ExportStudents value)? exportStudents,
     required TResult orElse(),
   }) {
     if (deleteStudent != null) {
@@ -494,6 +566,489 @@ abstract class _DeleteStudent implements StudentEvent {
   String get id;
   @JsonKey(ignore: true)
   _$$DeleteStudentImplCopyWith<_$DeleteStudentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateStudentImplCopyWith<$Res> {
+  factory _$$UpdateStudentImplCopyWith(
+          _$UpdateStudentImpl value, $Res Function(_$UpdateStudentImpl) then) =
+      __$$UpdateStudentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Student student});
+}
+
+/// @nodoc
+class __$$UpdateStudentImplCopyWithImpl<$Res>
+    extends _$StudentEventCopyWithImpl<$Res, _$UpdateStudentImpl>
+    implements _$$UpdateStudentImplCopyWith<$Res> {
+  __$$UpdateStudentImplCopyWithImpl(
+      _$UpdateStudentImpl _value, $Res Function(_$UpdateStudentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? student = null,
+  }) {
+    return _then(_$UpdateStudentImpl(
+      null == student
+          ? _value.student
+          : student // ignore: cast_nullable_to_non_nullable
+              as Student,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateStudentImpl implements _UpdateStudent {
+  const _$UpdateStudentImpl(this.student);
+
+  @override
+  final Student student;
+
+  @override
+  String toString() {
+    return 'StudentEvent.updateStudent(student: $student)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateStudentImpl &&
+            (identical(other.student, student) || other.student == student));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, student);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateStudentImplCopyWith<_$UpdateStudentImpl> get copyWith =>
+      __$$UpdateStudentImplCopyWithImpl<_$UpdateStudentImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String grade) loadStudents,
+    required TResult Function(Student student) addStudent,
+    required TResult Function(String id) deleteStudent,
+    required TResult Function(Student student) updateStudent,
+    required TResult Function(String path, String grade) importStudents,
+    required TResult Function(String grade) exportStudents,
+  }) {
+    return updateStudent(student);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String grade)? loadStudents,
+    TResult? Function(Student student)? addStudent,
+    TResult? Function(String id)? deleteStudent,
+    TResult? Function(Student student)? updateStudent,
+    TResult? Function(String path, String grade)? importStudents,
+    TResult? Function(String grade)? exportStudents,
+  }) {
+    return updateStudent?.call(student);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String grade)? loadStudents,
+    TResult Function(Student student)? addStudent,
+    TResult Function(String id)? deleteStudent,
+    TResult Function(Student student)? updateStudent,
+    TResult Function(String path, String grade)? importStudents,
+    TResult Function(String grade)? exportStudents,
+    required TResult orElse(),
+  }) {
+    if (updateStudent != null) {
+      return updateStudent(student);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStudents value) loadStudents,
+    required TResult Function(_AddStudent value) addStudent,
+    required TResult Function(_DeleteStudent value) deleteStudent,
+    required TResult Function(_UpdateStudent value) updateStudent,
+    required TResult Function(_ImportStudents value) importStudents,
+    required TResult Function(_ExportStudents value) exportStudents,
+  }) {
+    return updateStudent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStudents value)? loadStudents,
+    TResult? Function(_AddStudent value)? addStudent,
+    TResult? Function(_DeleteStudent value)? deleteStudent,
+    TResult? Function(_UpdateStudent value)? updateStudent,
+    TResult? Function(_ImportStudents value)? importStudents,
+    TResult? Function(_ExportStudents value)? exportStudents,
+  }) {
+    return updateStudent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStudents value)? loadStudents,
+    TResult Function(_AddStudent value)? addStudent,
+    TResult Function(_DeleteStudent value)? deleteStudent,
+    TResult Function(_UpdateStudent value)? updateStudent,
+    TResult Function(_ImportStudents value)? importStudents,
+    TResult Function(_ExportStudents value)? exportStudents,
+    required TResult orElse(),
+  }) {
+    if (updateStudent != null) {
+      return updateStudent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateStudent implements StudentEvent {
+  const factory _UpdateStudent(final Student student) = _$UpdateStudentImpl;
+
+  Student get student;
+  @JsonKey(ignore: true)
+  _$$UpdateStudentImplCopyWith<_$UpdateStudentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ImportStudentsImplCopyWith<$Res> {
+  factory _$$ImportStudentsImplCopyWith(_$ImportStudentsImpl value,
+          $Res Function(_$ImportStudentsImpl) then) =
+      __$$ImportStudentsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String path, String grade});
+}
+
+/// @nodoc
+class __$$ImportStudentsImplCopyWithImpl<$Res>
+    extends _$StudentEventCopyWithImpl<$Res, _$ImportStudentsImpl>
+    implements _$$ImportStudentsImplCopyWith<$Res> {
+  __$$ImportStudentsImplCopyWithImpl(
+      _$ImportStudentsImpl _value, $Res Function(_$ImportStudentsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? path = null,
+    Object? grade = null,
+  }) {
+    return _then(_$ImportStudentsImpl(
+      null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ImportStudentsImpl implements _ImportStudents {
+  const _$ImportStudentsImpl(this.path, this.grade);
+
+  @override
+  final String path;
+  @override
+  final String grade;
+
+  @override
+  String toString() {
+    return 'StudentEvent.importStudents(path: $path, grade: $grade)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImportStudentsImpl &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.grade, grade) || other.grade == grade));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, path, grade);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImportStudentsImplCopyWith<_$ImportStudentsImpl> get copyWith =>
+      __$$ImportStudentsImplCopyWithImpl<_$ImportStudentsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String grade) loadStudents,
+    required TResult Function(Student student) addStudent,
+    required TResult Function(String id) deleteStudent,
+    required TResult Function(Student student) updateStudent,
+    required TResult Function(String path, String grade) importStudents,
+    required TResult Function(String grade) exportStudents,
+  }) {
+    return importStudents(path, grade);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String grade)? loadStudents,
+    TResult? Function(Student student)? addStudent,
+    TResult? Function(String id)? deleteStudent,
+    TResult? Function(Student student)? updateStudent,
+    TResult? Function(String path, String grade)? importStudents,
+    TResult? Function(String grade)? exportStudents,
+  }) {
+    return importStudents?.call(path, grade);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String grade)? loadStudents,
+    TResult Function(Student student)? addStudent,
+    TResult Function(String id)? deleteStudent,
+    TResult Function(Student student)? updateStudent,
+    TResult Function(String path, String grade)? importStudents,
+    TResult Function(String grade)? exportStudents,
+    required TResult orElse(),
+  }) {
+    if (importStudents != null) {
+      return importStudents(path, grade);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStudents value) loadStudents,
+    required TResult Function(_AddStudent value) addStudent,
+    required TResult Function(_DeleteStudent value) deleteStudent,
+    required TResult Function(_UpdateStudent value) updateStudent,
+    required TResult Function(_ImportStudents value) importStudents,
+    required TResult Function(_ExportStudents value) exportStudents,
+  }) {
+    return importStudents(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStudents value)? loadStudents,
+    TResult? Function(_AddStudent value)? addStudent,
+    TResult? Function(_DeleteStudent value)? deleteStudent,
+    TResult? Function(_UpdateStudent value)? updateStudent,
+    TResult? Function(_ImportStudents value)? importStudents,
+    TResult? Function(_ExportStudents value)? exportStudents,
+  }) {
+    return importStudents?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStudents value)? loadStudents,
+    TResult Function(_AddStudent value)? addStudent,
+    TResult Function(_DeleteStudent value)? deleteStudent,
+    TResult Function(_UpdateStudent value)? updateStudent,
+    TResult Function(_ImportStudents value)? importStudents,
+    TResult Function(_ExportStudents value)? exportStudents,
+    required TResult orElse(),
+  }) {
+    if (importStudents != null) {
+      return importStudents(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ImportStudents implements StudentEvent {
+  const factory _ImportStudents(final String path, final String grade) =
+      _$ImportStudentsImpl;
+
+  String get path;
+  String get grade;
+  @JsonKey(ignore: true)
+  _$$ImportStudentsImplCopyWith<_$ImportStudentsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ExportStudentsImplCopyWith<$Res> {
+  factory _$$ExportStudentsImplCopyWith(_$ExportStudentsImpl value,
+          $Res Function(_$ExportStudentsImpl) then) =
+      __$$ExportStudentsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String grade});
+}
+
+/// @nodoc
+class __$$ExportStudentsImplCopyWithImpl<$Res>
+    extends _$StudentEventCopyWithImpl<$Res, _$ExportStudentsImpl>
+    implements _$$ExportStudentsImplCopyWith<$Res> {
+  __$$ExportStudentsImplCopyWithImpl(
+      _$ExportStudentsImpl _value, $Res Function(_$ExportStudentsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? grade = null,
+  }) {
+    return _then(_$ExportStudentsImpl(
+      null == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ExportStudentsImpl implements _ExportStudents {
+  const _$ExportStudentsImpl(this.grade);
+
+  @override
+  final String grade;
+
+  @override
+  String toString() {
+    return 'StudentEvent.exportStudents(grade: $grade)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ExportStudentsImpl &&
+            (identical(other.grade, grade) || other.grade == grade));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, grade);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ExportStudentsImplCopyWith<_$ExportStudentsImpl> get copyWith =>
+      __$$ExportStudentsImplCopyWithImpl<_$ExportStudentsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String grade) loadStudents,
+    required TResult Function(Student student) addStudent,
+    required TResult Function(String id) deleteStudent,
+    required TResult Function(Student student) updateStudent,
+    required TResult Function(String path, String grade) importStudents,
+    required TResult Function(String grade) exportStudents,
+  }) {
+    return exportStudents(grade);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String grade)? loadStudents,
+    TResult? Function(Student student)? addStudent,
+    TResult? Function(String id)? deleteStudent,
+    TResult? Function(Student student)? updateStudent,
+    TResult? Function(String path, String grade)? importStudents,
+    TResult? Function(String grade)? exportStudents,
+  }) {
+    return exportStudents?.call(grade);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String grade)? loadStudents,
+    TResult Function(Student student)? addStudent,
+    TResult Function(String id)? deleteStudent,
+    TResult Function(Student student)? updateStudent,
+    TResult Function(String path, String grade)? importStudents,
+    TResult Function(String grade)? exportStudents,
+    required TResult orElse(),
+  }) {
+    if (exportStudents != null) {
+      return exportStudents(grade);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStudents value) loadStudents,
+    required TResult Function(_AddStudent value) addStudent,
+    required TResult Function(_DeleteStudent value) deleteStudent,
+    required TResult Function(_UpdateStudent value) updateStudent,
+    required TResult Function(_ImportStudents value) importStudents,
+    required TResult Function(_ExportStudents value) exportStudents,
+  }) {
+    return exportStudents(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStudents value)? loadStudents,
+    TResult? Function(_AddStudent value)? addStudent,
+    TResult? Function(_DeleteStudent value)? deleteStudent,
+    TResult? Function(_UpdateStudent value)? updateStudent,
+    TResult? Function(_ImportStudents value)? importStudents,
+    TResult? Function(_ExportStudents value)? exportStudents,
+  }) {
+    return exportStudents?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStudents value)? loadStudents,
+    TResult Function(_AddStudent value)? addStudent,
+    TResult Function(_DeleteStudent value)? deleteStudent,
+    TResult Function(_UpdateStudent value)? updateStudent,
+    TResult Function(_ImportStudents value)? importStudents,
+    TResult Function(_ExportStudents value)? exportStudents,
+    required TResult orElse(),
+  }) {
+    if (exportStudents != null) {
+      return exportStudents(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ExportStudents implements StudentEvent {
+  const factory _ExportStudents(final String grade) = _$ExportStudentsImpl;
+
+  String get grade;
+  @JsonKey(ignore: true)
+  _$$ExportStudentsImplCopyWith<_$ExportStudentsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
