@@ -8,7 +8,8 @@ A unified offline-first application for Church Servants to manage attendance and
 - 🔄 **Firebase Sync** - Automatic background synchronization with Firestore when online.
 - 👥 **Role-based Access** - Secure access control for different servant roles.
 - 📅 **Attendance Tracking** - Efficient daily attendance management with conflict resolution.
-- 📊 **Results Management** - Track and manage student results.
+- 📂 **Data Import/Export** - Bulk import students via Excel and export attendance reports.
+- 📊 **Attendance Reporting** - Generate and analyze attendance data.
 
 ## 🏗️ Architecture
 
