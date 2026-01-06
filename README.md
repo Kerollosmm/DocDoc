@@ -1,32 +1,25 @@
-# Doc App 🏥
+# CSMS App (Church Servants Management System) ✝️
 
-A modern Flutter-based medical/healthcare application featuring user authentication, onboarding, and healthcare management functionality. Built with clean architecture principles and modern Flutter development practices.
-
-## 📱 Screenshots
-
-<div align="center">
-  <img src="assets/screens/login_screen.png" width="250" alt="Login Screen" />
-  <img src="assets/screens/signUp_screen.png" width="250" alt="Sign Up Screen" />
-  <img src="assets/screens/dashbourd_screen.png" width="250" alt="Dashboard Screen" />
-</div>
+A unified offline-first application for Church Servants to manage attendance and results. This system ensures efficient data handling and role-based access for managing church activities.
 
 ## ✨ Features
 
-- 🔐 **User Authentication** - Secure login and registration system
-- 📋 **Onboarding Flow** - Smooth user introduction experience
-- 🏥 **Healthcare Dashboard** - Medical information management
-- 📱 **Responsive Design** - Optimized for all screen sizes
-- 🎨 **Modern UI/UX** - Clean and intuitive interface
-- 🌐 **Multi-Platform** - Android, iOS, Web, and Desktop support
+- 📶 **Offline-first** - Powered by Hive for local storage, ensuring functionality without internet.
+- 🔄 **Firebase Sync** - Automatic background synchronization with Firestore when online.
+- 👥 **Role-based Access** - Secure access control for different servant roles.
+- 📅 **Attendance Tracking** - Efficient daily attendance management with conflict resolution.
+- 📂 **Data Import/Export** - Bulk import students via Excel and export attendance reports.
+- 📊 **Attendance Reporting** - Generate and analyze attendance data.
 
 ## 🏗️ Architecture
 
 This project follows **Clean Architecture** principles with a feature-based folder structure:
 
-- **BLoC/Cubit** for state management
+- **BLoC** for state management
 - **Repository Pattern** for data layer
-- **Dependency Injection** using GetIt
-- **Code Generation** with Freezed and JSON Serializable
+- **Dependency Injection** using GetIt & Injectable
+- **Hive** for local database
+- **Firebase** for backend services (Firestore, Auth)
 
 ## 🛠️ Tech Stack
 
@@ -37,33 +30,13 @@ This project follows **Clean Architecture** principles with a feature-based fold
 
 ### Key Dependencies
 
-- `flutter_bloc` ^9.1.1 - State management
-- `flutter_screenutil` ^5.9.3 - Responsive UI scaling
-- `dio` + `retrofit` ^4.7.2 - HTTP client and API services
-- `freezed` ^3.2.0 - Immutable class generation
-- `get_it` ^8.2.0 - Dependency injection
-- `flutter_svg` ^2.2.1 - SVG support
-- `json_serializable` ^6.11.0 - JSON serialization
-
-## 📁 Project Structure
-
-```
-lib/
-├── main_development.dart      # Development entry point
-├── main_production.dart       # Production entry point
-├── doc_app.dart              # Main app widget
-├── core/                     # Core functionality
-│   ├── di/                   # Dependency injection
-│   ├── networking/           # API services & HTTP client
-│   ├── routing/              # Navigation & routes
-│   ├── theming/              # Colors, text styles, themes
-│   ├── widgets/              # Reusable UI components
-│   └── helpers/              # Utilities & extensions
-└── features/                 # Feature modules
-    ├── login/                # Authentication
-    ├── sign_up/              # User registration
-    └── onboarding/           # App introduction
-```
+- `flutter_bloc` - State management
+- `hive` & `hive_flutter` - Local database
+- `firebase_core`, `cloud_firestore`, `firebase_auth` - Backend services
+- `get_it`, `injectable` - Dependency injection
+- `freezed`, `json_serializable` - Code generation
+- `go_router` - Navigation
+- `excel` - Data export/import
 
 ## 🚀 Getting Started
 
@@ -71,16 +44,14 @@ lib/
 
 - Flutter SDK ^3.9.0
 - Dart SDK ^3.9.0
-- Android Studio / VS Code
-- Git
 
 ### Installation
 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/Kerollosmm/DocDoc
-   cd doc_app
+   git clone <repository_url>
+   cd csms_app
    ```
 
 2. **Install dependencies**
@@ -98,11 +69,7 @@ lib/
 4. **Run the app**
 
    ```bash
-   # Development flavor
-   flutter run --flavor development -t lib/main_development.dart
-
-   # Production flavor
-   flutter run --flavor production -t lib/main_production.dart
+   flutter run
    ```
 
 ## 🔧 Development Commands
@@ -112,54 +79,7 @@ lib/
 ```bash
 # Run code generation (after modifying models)
 flutter packages pub run build_runner build --delete-conflicting-outputs
-
-# Watch for changes and auto-generate
-flutter packages pub run build_runner watch --delete-conflicting-outputs
 ```
-
-### Build Commands
-
-```bash
-# Clean and get dependencies
-flutter clean && flutter pub get
-
-# Build APK (Production)
-flutter build apk --flavor production -t lib/main_production.dart
-
-# Build App Bundle (Production)
-flutter build appbundle --flavor production -t lib/main_production.dart
-
-# Build for Web
-flutter build web --flavor production -t lib/main_production.dart
-```
-
-### Testing
-
-```bash
-# Run all tests
-flutter test
-
-# Run tests with coverage
-flutter test --coverage
-```
-
-## 🎯 Flavors
-
-The app supports multiple build flavors:
-
-- **Development** (`development`) - For development and testing
-- **Production** (`production`) - For release builds
-
-Each flavor has its own configuration and can be run independently.
-
-## 📱 Platform Support
-
-- ✅ **Android** (Primary)
-  -iOS\*\*
-- ✅ **Web**
-- ✅ **Windows**
-- ✅ **macOS**
-- ✅ **Linux**
 
 ## 🤝 Contributing
 
@@ -169,14 +89,6 @@ Each flavor has its own configuration and can be run independently.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For support and questions, please contact the development team or create an issue in the repository.
-
 ---
 
-**Built with ❤️ using Flutter**
+**Built with ❤️ for the Church Service**

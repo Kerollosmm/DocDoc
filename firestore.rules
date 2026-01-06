@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && getUserData().role == 'admin';
+    }
+
+    function isServant() {
+      return isAuthenticated() && getUserData().role == 'servant';
+    }
+
+    function isStudent() {
+      return isAuthenticated() && getUserData().role == 'student';
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin(); // Only admins can create/update users
+    }
+
+    // Students collection
+    match /students/{studentId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() || isServant();
+    }
+
+    // Attendance Sheets collection
+    match /attendance_sheets/{sheetId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() || isServant();
+    }
+
+    // Servants collection
+     match /servants/{servantId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+     // Classes collection
+     match /classes/{classId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}
