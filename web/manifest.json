@@ -1,6 +1,6 @@
 {
-    "name": "doc_app",
-    "short_name": "doc_app",
+    "name": "csms",
+    "short_name": "csms",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
