@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": "auth_uid_1",
+      "email": "admin@church.com",
+      "role": "admin"
+    },
+    {
+      "id": "auth_uid_2",
+      "email": "servant@church.com",
+      "role": "servant"
+    }
+  ],
+  "servants": [
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phoneNumber": "1234567890",
+      "role": "servant"
+    },
+    {
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "phoneNumber": "0987654321",
+      "role": "servant"
+    }
+  ],
+  "services": [
+    {
+      "name": "Sunday Mass",
+      "time": "09:00"
+    },
+    {
+      "name": "Friday Meeting",
+      "time": "18:00"
+    }
+  ]
+}

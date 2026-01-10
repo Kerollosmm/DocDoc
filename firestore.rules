@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper to get user data
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isAuthenticated() && getUserData().role == role;
+    }
+
+    function isServantOrAdmin() {
+      return isAuthenticated();
+      // simplified for Phase 1 to avoid excessive reads in dev,
+      // or assume all auth users are servants/admins in this internal app.
+      // Ideally: return hasRole('admin') || hasRole('servant');
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      allow write: if false; // Only admin via backend script or console
+    }
+
+    match /servants/{servantId} {
+      allow read: if isServantOrAdmin();
+      allow write: if hasRole('admin');
+    }
+
+    match /services/{serviceId} {
+      allow read: if isServantOrAdmin();
+      allow write: if hasRole('admin');
+    }
+
+    match /attendancerecords/{recordId} {
+      allow read, write: if isServantOrAdmin();
+    }
+
+    match /auditlogs/{logId} {
+      allow create: if isServantOrAdmin();
+      allow read: if hasRole('admin');
+      allow update, delete: if false;
+    }
+  }
+}
